@@ -58,9 +58,29 @@ public class Deck
         return cards.isEmpty ( );
     }
 
-    public void shuffle ( )
+    public void shuffle ( final int excCount)
     {
-        
+        for (int k=0; k<excCount; k++)
+        {
+        	int i = (int)(52 * Math.random() );
+        	int j = (int)(52 * Math.random() );
+        	
+        	// Swap the cards at the randomly selected locations.
+        	Card tmpCard = this.cards.get(i);
+        	cards.set ( i, cards.get(j) );
+        	cards.set ( j, tmpCard );
+        }
+    }
+    
+    public String toString ( )
+    {
+    	String rslt = "The deck consists of the following cards:\n";
+    	for ( Card c : cards)
+    		rslt += c.toString() + "\n ";
+    	
+    	rslt += "\n";
+    	
+    	return rslt;
     }
     
     protected Vector<Card> cards = new Vector<Card> ( );

@@ -23,22 +23,14 @@ public class PlayingDeck extends Deck
         super ( );
         
         // Create the 52 card deck then shuffle them.
-        // Add clubs
-        for (int i=2; i<15; i++)
-            cards.add ( new Card ( i, Suit.CLUB ) );
+        for (Suit s : Suit.values())
+        {
+        	for (int i=2; i<15; i++)
+        	{
+        		cards.add ( new Card ( i, s ) );
+        	}
+        }
         
-        // Add diamonds
-        for (int i=2; i<15; i++)
-            cards.add ( new Card ( i, Suit.DIAMOND ) );
-        
-        // Add hearts
-        for (int i=2; i<15; i++)
-            cards.add ( new Card ( i, Suit.HEART ) );
-        
-        // Add spades
-        for (int i=2; i<15; i++)
-            cards.add ( new Card ( i, Suit.SPADE ) );
-        
-        shuffle ( );
+        shuffle ( 104 );
     }
 }

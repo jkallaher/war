@@ -68,7 +68,7 @@ public class Player
                     playingHand.add ( winPile.dealCard ( ) );
                 }
                 
-                playingHand.shuffle ( );
+                playingHand.shuffle ( 15 );
             }
         }
         
