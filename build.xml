@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="war" default="jar" basedir=".">
+
+    <description>
+        This build file specifies the tasks for building an IDS IDSS
+        NCO PIC demonstration application.
+    </description>
+
+    <!--  R E T R I E V E   E N V I R O N M E N T -->
+    <property environment="env" />
+  
+    <!-- config for global/local variations -->
+<!--    <property file="build.properties" /> -->
+
+    <!-- Define some variables. -->
+    <property name="product.name"         value="war" />
+    <property name="version"              value="1.0" />
+    <property name="product.name.version" value="${product.name}-${version}" />
+    <property name="product.jar.name"     value="${product.name}.jar" />
+
+    <!-- Define the project directory structure -->
+    <property name="build.dir"        value="target" />
+    <property name="lib.dir"          value="${build.dir}/lib" />
+    <property name="java.class.dir"   value="${build.dir}/classes"/>
+    <property name="jar.dir"          value="${build.dir}/lib" />
+    <property name="dist.dir"         value="dist" />
+    <property name="doc.dir"          value="docs" />
+    <property name="docs.dir"         value="docs" />
+    <property name="java.src.dir"     value="src" />
+    <property name="jdk.lib.dir"      value="${env.JDK_HOME}/lib" />
+    
+    <!-- Define the project classpath -->
+    <path id="project.classpath">
+        <pathelement location="${java.class.dir}" />
+        <pathelement location="${jdk.lib.dir}/tools.jar" />
+    </path>
+    
+
+    <!-- I N I T I A L I Z E  B U I L D  E N V I R O N M E N T   -->
+    <target name="init">
+        <tstamp/>
+        <mkdir dir="${lib.dir}" />
+        <mkdir dir="${java.class.dir}" />
+        <mkdir dir="${dist.dir}" />
+        
+    </target>
+    
+    <!-- C O M P I L E   J A V A   S O U R C E   -->
+    <target name="compile">
+        <antcall target="compile-impl">
+            <param name="compile.dir" value="${java.src.dir}" />
+        </antcall>
+    </target>
+
+    <target name="compile-impl" depends="init" description="Compiles the java source"
+            unless="no-compile">
+        <javac destdir="${java.class.dir}"
+               debug="on"
+               verbose="${verbose}"
+               excludes="${product.excludes}">
+            <src path="${compile.dir}" />
+            <classpath refid="project.classpath" />
+        </javac>
+    </target>
+
+    <!-- C L E A N  -->
+    <target name="clean">
+        <delete dir="${lib.dir}" quiet="true" />
+        <delete dir="${java.class.dir}" quiet="true" />
+    </target>
+
+    <!-- C L E A N  D I S T R I B U T I O N -->
+    <target name="distclean">
+        <delete quiet="true">
+            <fileset dir="${dist.dir}/" includes="**/*" />
+        </delete>
+    </target>
+
+    <!--  G E N E R A T E  J A R   F I L E  -->
+    <target name="jar" depends="${product.jar.name}" />
+    <target name="jaritol" depends="${product.jar.name}" />
+
+    <target name="${product.jar.name}" depends="compile">
+        <jar jarfile="${jar.dir}/${product.jar.name}">
+        <fileset dir="${java.class.dir}" includes="**/*.class"/>
+        </jar>  
+    </target>
+
+
+    <!--  D I S T R I B U T I O N   T A R G E T S  -->
+
+    <!-- C H E C K S T Y L E  T A R G E T -->
+    <target name="audit">
+    </target >
+    
+    <!-- U P D A T E  S O U R C E  T A R G E T -->
+    <target name="update">
+    </target >
+    
+</project>

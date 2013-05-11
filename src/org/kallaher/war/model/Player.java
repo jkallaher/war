@@ -19,6 +19,11 @@ public class Player
      */
     public Player ( ) { }
     
+    public Player ( final String aName )
+    {
+    	name = aName;
+    }
+    
     /**
      * Adds a <code>Card</code> to the playing hand.
      * 
@@ -49,6 +54,11 @@ public class Player
     }
     
     /**
+     * @return the name of the player.
+     */
+    public String getName ( ) { return name; }
+    
+    /**
      * Plays the top card of the <code>Player</code>'s playing hand.  If the
      * playing hand becomes empty, the winning pile is transferred to the playing
      * hand and it is shuffled.
@@ -75,6 +85,14 @@ public class Player
         return card;
     }
     
+    public String toString ( )
+    {
+    	String s = name + "'s cards: \n" + playingHand.toString();
+    	
+    	return s;
+    }
+    
+    private String name;
     private Deck playingHand = new Deck ( );
     private Deck winPile = new Deck ( );
 }
